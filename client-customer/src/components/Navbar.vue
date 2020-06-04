@@ -9,10 +9,11 @@
 
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item to="/">Home</b-nav-item>
-        <b-nav-item v-if="isLogin" to="/cart">Cart</b-nav-item>
+        <b-nav-item to="/"><span class="text-light">HOME</span></b-nav-item>
+        <b-nav-item v-if="isLogin" to="/cart"><span class="text-light">MY CART</span></b-nav-item>
         <b-nav-item disabled></b-nav-item>
-        <b-nav-text v-if="isLogin">Welcome {{ emailLogin }}</b-nav-text>
+        <b-nav-item disabled></b-nav-item>
+        <b-nav-text v-if="isLogin"><span class="text-light">Welcome {{ emailLogin }}</span></b-nav-text>
       </b-navbar-nav>
 
       <!-- Right aligned nav items -->

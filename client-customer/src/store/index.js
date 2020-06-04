@@ -7,7 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLogin: false,
-    emailLogin: null
+    emailLogin: null,
+    productList: ''
   },
   mutations: {
     SET_LOGIN (state, payload) {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     },
     SET_EMAIL_LOGIN (state, payload) {
       state.emailLogin = payload
+    },
+    SET_PRODUCT_LIST (state, payload) {
+      state.productList = payload
     }
   },
   actions: {
@@ -29,6 +33,14 @@ export default new Vuex.Store({
         email: payload.email,
         password: payload.password
       })
+    },
+    readProductByName (store, payload) {
+      return server.post('/products/byName', {
+        name: payload.name
+      })
+    },
+    searchProduct (store, payload) {
+      return server.get(`/products/${payload.productId}`)
     }
   },
   modules: {
