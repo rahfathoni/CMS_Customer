@@ -16,14 +16,15 @@ export default {
     Navbar, Footer
   },
   methods: {
-    ...mapMutations(['SET_LOGIN'])
+    ...mapMutations(['SET_LOGIN', 'SET_EMAIL_LOGIN'])
   },
   created () {
     if (!localStorage.token) {
+      this.SET_EMAIL_LOGIN(null)
       this.SET_LOGIN(false)
     } else {
-      this.$router.push('/')
       this.SET_LOGIN(true)
+      this.SET_EMAIL_LOGIN(localStorage.email)
     }
   }
 }

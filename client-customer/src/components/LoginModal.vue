@@ -11,7 +11,7 @@
                 LOGIN
             </template>
             <h6 class="text-center text-danger" v-if="errorMessage">{{ errorMessage }} </h6>
-            <form v-on:submit.prevent="login">
+            <form v-on:submit.prevent="loginForm">
                 <div class="modal-body">
                     <div class="form-label-group">
                         <label><strong>Email address</strong></label>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import { mapActions, mapMutations } from 'vuex'
 export default {
   name: 'LoginModal',
   data () {
@@ -46,14 +47,30 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['SET_LOGIN', 'SET_EMAIL_LOGIN']),
+    ...mapActions(['loginCustomer']),
     showLogin () {
       this.$refs.loginModal.show()
       this.loginEmail = ''
       this.loginPassword = ''
       this.errorMessage = false
     },
-    login () {
-      this.$refs.loginModal.hide()
+    loginForm () {
+      this.loginCustomer({
+        email: this.loginEmail,
+        password: this.loginPassword
+      })
+        .then(({ data }) => {
+          localStorage.setItem('token', data.token)
+          localStorage.setItem('email', data.email)
+          this.errorMessage = false
+          this.SET_LOGIN(true)
+          this.SET_EMAIL_LOGIN(data.email)
+          this.$refs.loginModal.hide()
+        })
+        .catch(err => {
+          this.errorMessage = err.response.data.errors[0].message
+        })
     },
     registerView () {
       this.$router.push('/register')

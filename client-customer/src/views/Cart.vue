@@ -6,6 +6,11 @@
 
 <script>
 export default {
-  name: 'Cart'
+  name: 'Cart',
+  created () {
+    if (!localStorage.token) {
+      this.$router.push('/')
+    }
+  }
 }
 </script>

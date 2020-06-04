@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   name: 'Register',
   data () {
@@ -46,7 +46,6 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SET_LOGIN']),
     ...mapActions(['register']),
     registerForm () {
       if (this.registerPassword !== this.confirmationPassword) {
@@ -77,11 +76,8 @@ export default {
     this.registerPassword = ''
     this.confirmationPassword = ''
     this.errorMessage = false
-    if (!localStorage.token) {
-      this.SET_LOGIN(false)
-    } else {
+    if (localStorage.token) {
       this.$router.push('/')
-      this.SET_LOGIN(true)
     }
   }
 }
