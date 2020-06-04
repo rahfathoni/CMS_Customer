@@ -21,13 +21,7 @@
             <b-button class="my-2 my-sm-0" type="button" @click.prevent="showLoginModal">Login</b-button>
           </b-nav-item>
           <b-nav-item v-else>
-            <b-button id="popover-button-variant">Logout</b-button>
-            <b-popover target="popover-button-variant" placement="top" variant="warning" trigger="click">
-                <template v-slot:title>Are you sure?</template>
-                <div class="text-center">
-                    <button type="button"  @click.prevent="logout" class="btn btn-dark btn-sm">Yes</button>
-                </div>
-            </b-popover>
+            <b-button size="sm" class="my-2 my-sm-0" type="button" @click.prevent="logout">Logout</b-button>
           </b-nav-item>
       </b-navbar-nav>
     </b-collapse>
@@ -56,7 +50,9 @@ export default {
       localStorage.clear()
       this.SET_LOGIN(false)
       this.SET_EMAIL_LOGIN(null)
-      this.$router.push({ name: 'Main' })
+      if (this.$route.name !== 'Main') {
+        this.$router.push({ name: 'Main' })
+      }
     }
   }
 }
