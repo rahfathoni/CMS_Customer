@@ -8,7 +8,11 @@ export default new Vuex.Store({
   state: {
     isLogin: false,
     emailLogin: null,
-    productList: ''
+    productList: false,
+    cartList: false,
+    buyCart: '',
+    deleteCart: '',
+    cartNone: ''
   },
   mutations: {
     SET_LOGIN (state, payload) {
@@ -19,6 +23,18 @@ export default new Vuex.Store({
     },
     SET_PRODUCT_LIST (state, payload) {
       state.productList = payload
+    },
+    SET_CART_LIST (state, payload) {
+      state.cartList = payload
+    },
+    SET_BUY_CART (state, payload) {
+      state.buyCart = payload
+    },
+    SET_DELETE_CART (state, payload) {
+      state.deleteCart = payload
+    },
+    SET_CART_NONE (state, payload) {
+      state.cartNone = payload
     }
   },
   actions: {
@@ -40,7 +56,40 @@ export default new Vuex.Store({
       })
     },
     searchProduct (store, payload) {
-      return server.get(`/products/${payload.productId}`)
+      return server.get(`/products/${payload.ProductId}`)
+    },
+    addCart (store, payload) {
+      return server.post('/carts', {
+        ProductId: payload.ProductId,
+        quantity: payload.quantity
+      }, {
+        headers: {
+          token: payload.token
+        }
+      })
+    },
+    readCart (store, token) {
+      return server.get('/carts', {
+        headers: {
+          token
+        }
+      })
+    },
+    paymentItem (store, payload) {
+      return server.put(`/carts/${payload.id}`, {
+        isPaid: payload.isPaid
+      }, {
+        headers: {
+          token: payload.token
+        }
+      })
+    },
+    deleteCartAction (store, payload) {
+      return server.delete(`/carts/${payload.id}`, {
+        headers: {
+          token: payload.token
+        }
+      })
     }
   },
   modules: {

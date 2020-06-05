@@ -10,7 +10,11 @@
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
         <b-nav-item to="/"><span class="text-light">HOME</span></b-nav-item>
-        <b-nav-item v-if="isLogin" to="/cart"><span class="text-light">MY CART</span></b-nav-item>
+        <b-nav-item-dropdown v-if="isLogin" toggle-class="text-light" text="CART" right>
+          <b-dropdown-item to="/cart">MY CART</b-dropdown-item>
+          <b-dropdown-divider></b-dropdown-divider>
+          <b-dropdown-item to="/history/cart">HISTORY</b-dropdown-item>
+        </b-nav-item-dropdown>
         <b-nav-item disabled></b-nav-item>
         <b-nav-item disabled></b-nav-item>
         <b-nav-text v-if="isLogin"><span class="text-light">Welcome {{ emailLogin }}</span></b-nav-text>
@@ -22,7 +26,7 @@
             <b-button class="my-2 my-sm-0" type="button" @click.prevent="showLoginModal">Login</b-button>
           </b-nav-item>
           <b-nav-item v-else>
-            <b-button size="sm" class="my-2 my-sm-0" type="button" @click.prevent="logout">Logout</b-button>
+            <b-button class="my-2 my-sm-0" type="button" @click.prevent="logout">Logout</b-button>
           </b-nav-item>
       </b-navbar-nav>
     </b-collapse>
@@ -61,7 +65,7 @@ export default {
 
 <style>
     img {
-        width:32px;
-        height:auto;
+      width:32px;
+      height:auto;
     }
 </style>

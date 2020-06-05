@@ -18,10 +18,10 @@
             style="width: 100%; height: 25vw; object-fit: fill;"
             >
                 <div class="card-body">
-                    <hr>
-                    <h5 class="card-title text-center">{{ product.name }}</h5>
-                    <hr>
-                    <p class="card-text"><strong>Price (IDR) : </strong>{{ product.price }}</p>
+                    <hr class="mt-0 mb-2">
+                    <h5 class="card-title text-center mb-2">{{ product.name }}</h5>
+                    <hr class="mt-0 mb-1">
+                    <p class="card-text my-0"><strong>Price (IDR) : </strong>{{ product.price }} /pcs</p>
                     <p v-if="product.stock > 0" class="card-text"><strong>Stock (pcs) :</strong>{{ product.stock }}</p>
                     <p v-else class="card-text text-center text-danger"><strong>SOLD OUT</strong></p>
                 </div>

@@ -22,6 +22,10 @@ export default {
     if (!localStorage.token) {
       this.SET_EMAIL_LOGIN(null)
       this.SET_LOGIN(false)
+    } else if (localStorage.token && !localStorage.email) {
+      localStorage.clear()
+      this.SET_EMAIL_LOGIN(null)
+      this.SET_LOGIN(false)
     } else {
       this.SET_LOGIN(true)
       this.SET_EMAIL_LOGIN(localStorage.email)
