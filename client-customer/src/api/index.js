@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const server = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: 'https://mysterious-wave-51576.herokuapp.com'
 })
 
 export default server
