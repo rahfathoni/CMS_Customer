@@ -2,7 +2,7 @@
     <div class="container my-5">
         <div class="row">
             <div class="col-lg">
-                <h3 class="text-right">{{ emailLogin }} TRANSACTION HISTORY</h3>
+                <h3 class="text-left">TRANSACTION HISTORY</h3>
                 <hr style="border-top: 3px solid #8c8b8b;">
                 <div v-if="transactionList !== false">
                     <TransactionHistoryTable />

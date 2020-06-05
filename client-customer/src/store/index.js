@@ -13,7 +13,10 @@ export default new Vuex.Store({
     transactionList: false,
     buyCart: '',
     deleteCart: '',
-    cartNone: ''
+    cartNone: '',
+    params: {
+      client_id: "276306663956-c320ls7p3th40hve8s41n6vvbqsrr0e7.apps.googleusercontent.com"
+    }
   },
   mutations: {
     SET_LOGIN (state, payload) {
@@ -99,6 +102,13 @@ export default new Vuex.Store({
       return server.get('/carts/history', {
         headers: {
           token
+        }
+      })
+    },
+    googleSuccess (store, token) {
+      return server.post('/users/google-login', {
+        headers: {
+          googleToken: token
         }
       })
     }

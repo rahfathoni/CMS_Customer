@@ -2,7 +2,7 @@
   <div class="container my-5">
     <div class="row">
       <div class="col-lg">
-        <h3 class="text-left">{{ emailLogin }} CART  <b-icon icon="cart4"></b-icon></h3>
+        <h3 class="text-left">CART  <b-icon icon="cart4"></b-icon></h3>
         <hr style="border-top: 3px solid #8c8b8b;">
         <div v-if="cartList !== false">
           <CartTable />

@@ -30,6 +30,12 @@
             </div>
             <button type="submit" class="btn btn-lg btn-primary btn-block"><strong>LOGIN</strong></button>
           </form>
+          <div class="text-center">
+            <h5 class="mt-3"><strong>OR</strong></h5>
+            <button class="btn">
+                <GoogleLogin :params="params" :renderParams="renderParams" :onSuccess="onSuccess" :onFailure="onFailure"></GoogleLogin>
+            </button>
+          </div>
           <hr class="my-4">
           <div class="text-center">
               <p>Don't have account? Please Register Here</p>
@@ -43,21 +49,33 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
+import GoogleLogin from 'vue-google-login'
 export default {
   name: 'LoginModal',
+  components: {
+    GoogleLogin
+  },
+  computed: {
+    ...mapState(['params'])
+  },
   data () {
     return {
       loginEmail: '',
       loginPassword: '',
       errorMessage: false,
       secretPass: 'password',
-      secretIcon: 'eye-slash'
+      secretIcon: 'eye-slash',
+      renderParams: {
+        width: 250,
+        height: 50,
+        longtitle: true
+      }
     }
   },
   methods: {
     ...mapMutations(['SET_LOGIN', 'SET_EMAIL_LOGIN']),
-    ...mapActions(['loginCustomer']),
+    ...mapActions(['loginCustomer', 'googleSuccess']),
     secretChange () {
       if (this.secretPass === 'password') {
         this.secretPass = 'text'
@@ -98,6 +116,26 @@ export default {
     registerView () {
       this.$router.push('/register')
       this.$refs.loginModal.hide()
+    },
+    onSuccess (googleUser) {
+      const idToken = googleUser.getAuthResponse().id_token
+      this.googleSuccess(idToken)
+        .then(({ data }) => {
+          localStorage.setItem('token', data.token)
+          localStorage.setItem('email', data.email)
+          this.SET_LOGIN(true)
+          this.SET_EMAIL_LOGIN(data.email)
+          this.$refs.loginModal.hide()
+          if (this.$router.app.$root._route.name === 'Register') {
+            this.$router.push('/')
+          }
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    },
+    onFailure (error) {
+      console.log('google login fail', error)
     }
   }
 }

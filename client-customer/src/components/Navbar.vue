@@ -26,7 +26,9 @@
             <b-button class="my-2 my-sm-0" type="button" @click.prevent="showLoginModal">Login</b-button>
           </b-nav-item>
           <b-nav-item v-else>
-            <b-button class="my-2 my-sm-0" type="button" @click.prevent="logout">Logout</b-button>
+            <b-button class="my-2 my-sm-0" type="button" @click.prevent="logout">
+              <GoogleLogin :params="params" :logoutButton="true"><strong>logout</strong></GoogleLogin>
+            </b-button>
           </b-nav-item>
       </b-navbar-nav>
     </b-collapse>
@@ -38,13 +40,14 @@
 <script>
 import LoginModal from './LoginModal'
 import { mapState, mapMutations } from 'vuex'
+import GoogleLogin from 'vue-google-login'
 export default {
   name: 'Navbar',
   components: {
-    LoginModal
+    LoginModal, GoogleLogin
   },
   computed: {
-    ...mapState(['isLogin', 'emailLogin'])
+    ...mapState(['isLogin', 'emailLogin', 'params'])
   },
   methods: {
     ...mapMutations(['SET_LOGIN', 'SET_EMAIL_LOGIN']),
