@@ -10,6 +10,7 @@ export default new Vuex.Store({
     emailLogin: null,
     productList: false,
     cartList: false,
+    transactionList: false,
     buyCart: '',
     deleteCart: '',
     cartNone: ''
@@ -35,6 +36,9 @@ export default new Vuex.Store({
     },
     SET_CART_NONE (state, payload) {
       state.cartNone = payload
+    },
+    SET_TRANSACTION_LIST (state, payload) {
+      state.transactionList = payload
     }
   },
   actions: {
@@ -88,6 +92,13 @@ export default new Vuex.Store({
       return server.delete(`/carts/${payload.id}`, {
         headers: {
           token: payload.token
+        }
+      })
+    },
+    readTransactionHistory (store, token) {
+      return server.get('/carts/history', {
+        headers: {
+          token
         }
       })
     }

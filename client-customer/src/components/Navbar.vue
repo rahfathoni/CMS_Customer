@@ -13,7 +13,7 @@
         <b-nav-item-dropdown v-if="isLogin" toggle-class="text-light" text="CART" right>
           <b-dropdown-item to="/cart">MY CART</b-dropdown-item>
           <b-dropdown-divider></b-dropdown-divider>
-          <b-dropdown-item to="/history/cart">HISTORY</b-dropdown-item>
+          <b-dropdown-item to="/history/transaction">HISTORY</b-dropdown-item>
         </b-nav-item-dropdown>
         <b-nav-item disabled></b-nav-item>
         <b-nav-item disabled></b-nav-item>
